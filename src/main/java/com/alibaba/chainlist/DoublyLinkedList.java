@@ -23,7 +23,7 @@ public class DoublyLinkedList<T> {
     /**
      * 链表当前节点的数量
      */
-    private AtomicInteger num = new AtomicInteger(0);
+    private int num = 0;
 
     /**
      * 添加节点(在链表后面追加节点）
@@ -42,11 +42,11 @@ public class DoublyLinkedList<T> {
         }
 
         //节点数加1
-        num.incrementAndGet();
+        num++;
     }
 
     public int getNodeSize() {
-        return num.intValue();
+        return num;
     }
 
     /**
