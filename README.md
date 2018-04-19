@@ -13,5 +13,5 @@
 > alibaba.DLLTest
 
 ## 双向链表反转执行结果
-![image](https://raw.githubusercontent.com/georgeworld/georgeworld.github.com/master/gstudio/res/img/alibaba-interview.png.png)<br>  
+![image](https://raw.githubusercontent.com/georgeworld/georgeworld.github.com/master/gstudio/res/img/alibaba-interview.png)<br>  
 
