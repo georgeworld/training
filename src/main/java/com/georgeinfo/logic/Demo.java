@@ -4,6 +4,9 @@
 */
 package com.georgeinfo.logic;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @author George <GeorgeWorld@qq.com>
  */
@@ -45,4 +48,44 @@ public class Demo {
         }
 
     }
+
+    /**
+     * 数组倒置<br>
+     * 把类似   int[] nums = new int[]{3,2,5,1,8,0};
+     * 这样的数组，倒置反转成另外一个数组。
+     */
+    public static int[] arrayReverse(int[] incomming) {
+        if (incomming == null) {
+            return null;
+        }
+
+        int len = incomming.length;
+        int halfLen = len / 2;
+        for (int i = 0; i < halfLen; i++) {
+            incomming[i] = incomming[i] ^ incomming[len - i - 1];
+            incomming[len - i - 1] = incomming[i] ^ incomming[len - i - 1];
+            incomming[i] = incomming[i] ^ incomming[len - i - 1];
+        }
+        return incomming;
+    }
+
+    /**
+     * 在一层循环中删除List中的元素
+     **/
+    public static List<AtomicInteger> removeListOnRunning(List<AtomicInteger> list, AtomicInteger beRemoved) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        int len = list.size();
+        for (int i = 0; i < len; i++) {
+            AtomicInteger ai = list.get(i);
+            if (beRemoved == ai) {
+                list.remove(ai);
+                len--;
+            }
+        }
+
+        return list;
+    }
+
 }
