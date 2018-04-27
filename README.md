@@ -18,7 +18,7 @@
 # 2、打印有规律的数字
 ## 测试入口类 
 测试入口类文件物理路径：
-> {工程目录}/src/ ***test*** /java//logicDemoTest.java
+> {工程目录}/src/ ***test*** /java/logicDemoTest.java
 
 入口类包路径及名称：
 > logic.DemoTest
@@ -36,3 +36,7 @@
 2*3
 1
 </pre></code>
+
+# 3、更多算法和代码测试入口
+ 所有算法、代码功能的测试入口，看这里：
+> {工程目录}/src/ ***test*** /java/
