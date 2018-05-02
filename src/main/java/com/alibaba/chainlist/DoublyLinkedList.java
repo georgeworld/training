@@ -1,5 +1,7 @@
 package com.alibaba.chainlist;
 
+import com.util.CommonException;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

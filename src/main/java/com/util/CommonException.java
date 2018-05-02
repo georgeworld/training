@@ -2,7 +2,7 @@
  * Author : George <GeorgeNiceWorld@gmail.com> | <Georgeinfo@163.com>
  * Copyright (C) George (http://www.georgeinfo.com), All Rights Reserved.
  */
-package com.alibaba.chainlist;
+package com.util;
 
 /**
  * 通用运行时异常
