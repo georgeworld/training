@@ -2,10 +2,12 @@ package com.georgeinfo.bstree;
 
 import com.util.CommonException;
 
+import java.util.Stack;
+
 /**
  * 二叉树操作类
  *
- * @author George<GeorgeWorld                                                               @                                                               qq.com>
+ * @author George<GeorgeWorld                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               qq.com>
  */
 public class BSTree {
     private BSTreeNode rootNode;
@@ -78,6 +80,10 @@ public class BSTree {
      * * </nobr>
      **/
     public void printTree(BSTreeNode node) {
+        if (node == null) {
+            System.out.println("### Null node.");
+            return;
+        }
         System.out.println(node.getValue());
         if (node.getLeftNode() != null) {
             printTree(node.getLeftNode());
@@ -85,6 +91,43 @@ public class BSTree {
 
         if (node.getRightNode() != null) {
             printTree(node.getRightNode());
+        }
+    }
+
+    /**
+     * 先序循环遍历二叉树
+     * * <nobr>
+     * * ------------------4
+     * * ----------------/  \
+     * * --------------1      7
+     * * ------------/  \     / \
+     * * ----------0     2  5    8
+     * * ----------------\   \    \
+     * * -----------------3   6    9
+     * * </nobr>
+     **/
+    public void traverseByLoop(BSTreeNode node) {
+        if (node == null) {
+            throw new CommonException("### Root node can't be null.");
+        }
+
+        Stack<BSTreeNode> stack = new Stack();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            BSTreeNode currentNode = stack.pop();
+            System.out.println(currentNode.getValue());
+
+            BSTreeNode leftNode = currentNode.getLeftNode();
+            BSTreeNode rightNode = currentNode.getRightNode();
+
+            if (rightNode != null) {
+                stack.push(rightNode);
+            }
+
+            if (leftNode != null) {
+                stack.push(leftNode);
+            }
         }
     }
 

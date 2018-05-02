@@ -37,10 +37,16 @@ public class BSTreeTest {
     }
 
 
-    // 数组倒置
+    // 先序递归打印二叉树
     @Test
     public void printTree() {
         tree.printTree(tree.getRootNode());
+    }
+
+    // 先序循环打印二叉树
+    @Test
+    public void printTreeByLoop() {
+        tree.traverseByLoop(tree.getRootNode());
     }
 
 }
