@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * 二叉树操作类
  *
- * @author George<GeorgeWorld                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               qq.com>
+ * @author George<GeorgeWorld                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               qq.com>
  */
 public class BSTree {
     private BSTreeNode rootNode;
@@ -128,6 +128,23 @@ public class BSTree {
             if (leftNode != null) {
                 stack.push(leftNode);
             }
+        }
+    }
+
+    public void traverseAndCallback(BSTreeNode node, NodeCallback callback) {
+        if (node == null) {
+            System.out.println("### Null node.");
+            return;
+        }
+        System.out.println(node.getValue());
+        callback.processNode(node);
+
+        if (node.getLeftNode() != null) {
+            traverseAndCallback(node.getLeftNode(), callback);
+        }
+
+        if (node.getRightNode() != null) {
+            traverseAndCallback(node.getRightNode(), callback);
         }
     }
 
