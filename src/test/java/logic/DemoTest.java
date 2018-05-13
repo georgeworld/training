@@ -70,4 +70,22 @@ public class DemoTest {
         System.out.println("删除后的列表："+newList);
 
     }
+
+    // 在循环中动态删除List中的元素（iterator迭代器方式）
+    @Test
+    public void removeListElement2() {
+        List<AtomicInteger> list = new ArrayList<AtomicInteger>();
+        list.add(new AtomicInteger(1));
+        AtomicInteger ai = new AtomicInteger(2);
+        list.add(ai);
+        list.add(ai);
+        list.add(new AtomicInteger(3));
+
+        System.out.println("删除前的列表："+list);
+
+        List<AtomicInteger> newList = Demo.removeListOnRunningByIterator(list,ai);
+
+        System.out.println("删除后的列表："+newList);
+
+    }
 }
