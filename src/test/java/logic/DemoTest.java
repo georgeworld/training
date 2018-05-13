@@ -60,6 +60,7 @@ public class DemoTest {
         list.add(new AtomicInteger(1));
         AtomicInteger ai = new AtomicInteger(2);
         list.add(ai);
+        list.add(ai);
         list.add(new AtomicInteger(3));
 
         System.out.println("删除前的列表："+list);

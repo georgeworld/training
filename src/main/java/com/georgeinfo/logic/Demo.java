@@ -4,6 +4,7 @@
 */
 package com.georgeinfo.logic;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -70,18 +71,40 @@ public class Demo {
     }
 
     /**
-     * 在一层循环中删除List中的元素
+     * 在一层循环中删除List中的元素(采用倒序删除法)
+     * 因为删除list中的一个元素后，List会重拍，后面的元素向前挤，采用倒序删除，可以确保每次都删除最后一个元素。
      **/
     public static List<AtomicInteger> removeListOnRunning(List<AtomicInteger> list, AtomicInteger beRemoved) {
         if (list == null || list.isEmpty()) {
             return null;
         }
+
+        //倒序删除
         int len = list.size();
-        for (int i = 0; i < len; i++) {
+        for (int i = len - 1; i >= 0; i--) {
             AtomicInteger ai = list.get(i);
             if (beRemoved == ai) {
                 list.remove(ai);
                 len--;
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * 在一层循环中删除List中的元素(采用Iterator遍历删除)
+     **/
+    public static List<AtomicInteger> removeListOnRunningByIterator(List<AtomicInteger> list, AtomicInteger beRemoved) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Iterator<AtomicInteger> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            AtomicInteger ai = iterator.next();
+            if (ai.equals(beRemoved)) {
+                iterator.remove();
             }
         }
 
