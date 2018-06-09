@@ -35,7 +35,7 @@ public class ZKLockTestMain {
                 ConcurrentLock lock = null;
                 try {
                     //连接zk服务器，并设置抢占锁的名称
-                    lock = new ConcurrentLock("go.georgeinfo.com:16009", "test1");
+                    lock = new ConcurrentLock("www.baidu.com:9909", "test1");
 
                     //开始抢占锁
                     lock.lock();
