@@ -1,4 +1,4 @@
-package producerconsumer;
+package v1.producerconsumer;
 
 import com.georgeinfo.designpattern.producerconsumer.ProductData;
 import com.georgeinfo.designpattern.producerconsumer.blockingqueue.Consumer;

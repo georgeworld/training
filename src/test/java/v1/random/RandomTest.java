@@ -1,13 +1,9 @@
-package random;
+package v1.random;
 
-import com.georgeinfo.logic.Demo;
 import com.georgeinfo.random.RandomAlgorithm;
 import org.junit.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 随机数测试类

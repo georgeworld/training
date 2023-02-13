@@ -1,12 +1,6 @@
-package logic;
+package v1.logic;
 
-import com.georgeinfo.logic.Demo;
 import org.junit.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 数学测试

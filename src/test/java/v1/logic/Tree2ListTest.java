@@ -1,13 +1,7 @@
-package logic;
+package v1.logic;
 
 import com.georgeinfo.logic.BST2DoublyLinkedList;
-import com.georgeinfo.logic.Demo;
 import org.junit.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 二叉树转双向链表的测试

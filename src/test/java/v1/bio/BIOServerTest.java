@@ -1,14 +1,7 @@
-package io.bio;
+package v1.bio;
 
-import com.georgeinfo.io.bio.SocketClient;
 import com.georgeinfo.io.bio.SocketServer;
-import com.georgeinfo.logic.Demo;
 import org.junit.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 阻塞式IO Socket服务端测试

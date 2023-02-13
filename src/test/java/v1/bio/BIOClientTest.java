@@ -1,7 +1,6 @@
-package io.bio;
+package v1.bio;
 
 import com.georgeinfo.io.bio.SocketClient;
-import com.georgeinfo.io.bio.SocketServer;
 import org.junit.*;
 
 /**

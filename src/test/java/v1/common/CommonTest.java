@@ -1,4 +1,4 @@
-package common;
+package v1.common;
 
 import com.georgeinfo.proxy.DynamicProxyTest;
 import com.georgeinfo.proxy.DynamicProxyTestImpl;

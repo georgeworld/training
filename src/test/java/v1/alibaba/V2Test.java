@@ -1,4 +1,4 @@
-package alibaba;
+package v1.alibaba;
 
 import com.alibaba.chainlist.v2.MyLinkedList;
 import org.junit.Before;

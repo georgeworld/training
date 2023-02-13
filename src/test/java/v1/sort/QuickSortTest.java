@@ -1,20 +1,19 @@
-package sort;
+package v1.sort;
 
-import com.georgeinfo.algorithm.sort.BubbleSort;
-import com.georgeinfo.bstree.BSTree;
+import com.georgeinfo.algorithm.sort.QuickSort;
 import org.junit.*;
 
 import java.util.Arrays;
 
 /**
- * 冒泡排序算法测试
+ * 快速排序算法测试
  *
  * @author George <hi@georgeinfo.com>
  */
-public class BubbleSortTest {
+public class QuickSortTest {
     private int[] arrayData;
 
-    public BubbleSortTest() {
+    public QuickSortTest() {
     }
 
     @BeforeClass
@@ -29,7 +28,7 @@ public class BubbleSortTest {
     @Before
     public void setUp() {
         //组装待排序数组
-        arrayData = new int[]{6, 5, 2, 3, 1, 2, 5, 6, 2};
+        arrayData = new int[]{6, 5, 8, 3, 1, 2, 9, 7, 4};
         System.out.println("### 排序前：" + Arrays.toString(arrayData));
     }
 
@@ -39,14 +38,12 @@ public class BubbleSortTest {
     }
 
 
-    // 冒泡排序
+    // 快速排序
     @Test
     public void bubbleSort() {
-        BubbleSort bs = new BubbleSort(arrayData);
-        //常规冒泡排序
-        bs.sort();
+        //快速排序
+        QuickSort.quickSort(arrayData);
 
         System.out.println("### 排序后：" + Arrays.toString(arrayData));
     }
-
 }

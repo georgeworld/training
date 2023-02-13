@@ -1,4 +1,4 @@
-package logic;
+package v1.logic;
 
 /**
  * @author George (GeorgeWorld@qq.com)

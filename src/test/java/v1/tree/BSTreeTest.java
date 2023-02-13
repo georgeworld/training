@@ -1,4 +1,4 @@
-package tree;
+package v1.tree;
 
 import com.georgeinfo.bstree.BSTree;
 import org.junit.*;

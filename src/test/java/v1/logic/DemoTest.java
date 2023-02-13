@@ -1,6 +1,5 @@
-package logic;
+package v1.logic;
 
-import com.alibaba.chainlist.DoublyLinkedList;
 import com.georgeinfo.logic.Demo;
 import org.junit.*;
 

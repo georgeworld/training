@@ -1,25 +1,24 @@
-package producerconsumer;
+package v1.producerconsumer;
 
 import com.georgeinfo.designpattern.producerconsumer.ProductData;
-import com.georgeinfo.designpattern.producerconsumer.waitnotify.Consumer;
-import com.georgeinfo.designpattern.producerconsumer.waitnotify.Producer;
+import com.georgeinfo.designpattern.producerconsumer.signal.Consumer;
+import com.georgeinfo.designpattern.producerconsumer.signal.Producter;
 import org.junit.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * 使用Object累的wait 和 notifyAll方法，来使用普通List代替阻塞队列，实现生产者-消费者模式
+ * 使用阻塞队列的方式，来实现生产者-消费者模式
  *
  * @author George <hi@georgeinfo.com>
  */
-public class WaitNotifyTest {
+public class SignalTest {
 
-    public WaitNotifyTest() {
+
+    public SignalTest() {
     }
 
     @BeforeClass
@@ -47,9 +46,9 @@ public class WaitNotifyTest {
     public void testProducerConsumer() {
         List<ProductData<String>> queue = new ArrayList<ProductData<String>>();
         int length = 10;
-        Producer p1 = new Producer(queue, length);
-        Producer p2 = new Producer(queue, length);
-        Producer p3 = new Producer(queue, length);
+        Producter p1 = new Producter(queue, length);
+        Producter p2 = new Producter(queue, length);
+        Producter p3 = new Producter(queue, length);
         Consumer c1 = new Consumer(queue);
         Consumer c2 = new Consumer(queue);
         Consumer c3 = new Consumer(queue);
