@@ -9,7 +9,7 @@ public class BTreeTest2 {
     public void testTree() {
         FbTree tree = new FbTree();
         //指定高度构建树
-        FbTreeNode<Integer> root = tree.generateTree(5);
+        FbTreeNode<Integer> root = tree.generateTree(3);
         //打印遍历树
         tree.printTree(root);
     }

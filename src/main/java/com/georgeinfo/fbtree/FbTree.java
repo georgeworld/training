@@ -6,8 +6,14 @@ public class FbTree {
      * 指定高度，构建满二叉树
      */
     public FbTreeNode<Integer> generateTree(int height) {
+        //求节点总数
+        int totalNodes = (int)(Math.pow(2,height)-1);
+        System.out.println("节点总数="+totalNodes);
+        //求中位数
+        int middleNum = totalNodes/2+1;
+        System.out.println("中位数="+middleNum);
         //先创建一个根节点
-        FbTreeNode<Integer> root = new FbTreeNode<>(50);
+        FbTreeNode<Integer> root = new FbTreeNode<>(middleNum);
         if (height == 1) {
             return root;
         }
@@ -26,7 +32,7 @@ public class FbTree {
         //如果当前节点左右孩子都为空，则为它添加左右孩子
         if (left == null && right == null) {
             FbTreeNode<Integer> leftChild = new FbTreeNode<>(node.getValue() - 1);
-            FbTreeNode<Integer> rightChild = new FbTreeNode<>(node.getValue() - 1);
+            FbTreeNode<Integer> rightChild = new FbTreeNode<>(node.getValue() + 1);
             node.setLeftNode(leftChild);
             node.setRightNode(rightChild);
         }
