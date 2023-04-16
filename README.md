@@ -4,13 +4,13 @@
 # 1、双向链表反转
 ## 测试入口类
 测试入口类文件物理路径：
-> {工程目录}/src/ ***test*** /java/v1.alibaba/DLLTest.java
+> {工程目录}/src/ ***test*** /java/test.v1.alibaba/DLLTest.java
 
 入口类包路径及名称：
-> v1.alibaba.DLLTest
+> test.v1.alibaba.DLLTest
 
 ## 双向链表反转执行结果
-![image](https://raw.githubusercontent.com/georgeworld/georgeworld.github.com/master/gstudio/res/img/v1.alibaba-interview.png)<br>  
+![image](https://raw.githubusercontent.com/georgeworld/georgeworld.github.com/master/gstudio/res/img/test.v1.alibaba-test.interview.png)<br>  
 
 # 2、打印有规律的数字
 ## 测试入口类 
@@ -18,7 +18,7 @@
 > {工程目录}/src/ ***test*** /java/logicDemoTest.java
 
 入口类包路径及名称：
-> v1.logic.DemoTest
+> test.v1.logic.DemoTest
 
 ## 打印有规律的数字执行结果
 <pre><code>
