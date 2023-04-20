@@ -4,7 +4,7 @@ import com.georgeinfo.excel.MultiSheetExcelBuilder;
 import com.georgeinfo.excel.SheetInfo;
 import com.georgeinfo.excel.SheetInfoBuilder;
 import com.georgeinfo.excel.handler.ContentCellHandler;
-import com.georgeinfo.excel.handler.DemoSheetHandler;
+import com.georgeinfo.excel.handler.NumberColumnSheetHandler;
 import com.georgeinfo.excel.handler.DropDownMenuHandler;
 import com.georgeinfo.excel.handler.HeadStyleHandler;
 import com.georgeinfo.excel.template.DemoTemplate;
@@ -37,7 +37,7 @@ public class MultiSheetExcelTest {
                 .build());
         sheetList.add(SheetInfoBuilder.setSheetName("第二个sheet")
                 .setTemplateClass(DemoTemplate.class)
-                .setHandlerList(Arrays.asList(new DemoSheetHandler()))
+                .setHandlerList(Arrays.asList(new NumberColumnSheetHandler()))
                 .setData(getSencondSheetData())
                 .build());
 

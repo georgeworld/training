@@ -8,7 +8,7 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-public class DemoSheetHandler implements SheetWriteHandler {
+public class NumberColumnSheetHandler implements SheetWriteHandler {
     @Override
     public void beforeSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
 
