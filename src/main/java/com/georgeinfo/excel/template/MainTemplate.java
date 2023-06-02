@@ -1,6 +1,7 @@
 package com.georgeinfo.excel.template;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.format.NumberFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.ContentStyle;
@@ -29,15 +30,20 @@ public class MainTemplate {
     @ColumnWidth(50)
     @ExcelProperty(value = {"area", "活跃地区"}, index = 3)
     private String area;
+    @ColumnWidth(50)
+    @ContentStyle(dataFormat = 49)
+    @ExcelProperty(value = {"date", "日期"}, index = 4)
+    private String date;
 
     public MainTemplate() {
     }
 
-    public MainTemplate(String firstName, String lastName, BigDecimal money, String area) {
+    public MainTemplate(String firstName, String lastName, BigDecimal money, String area,String date) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.money = money;
         this.area = area;
+        this.date = date;
     }
 
     public String getFirstName() {
@@ -70,5 +76,13 @@ public class MainTemplate {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

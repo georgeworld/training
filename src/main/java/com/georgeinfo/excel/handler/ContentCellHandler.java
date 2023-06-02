@@ -7,7 +7,10 @@ import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.excel.util.NumberDataFormatterUtils;
 import com.alibaba.excel.write.handler.context.CellWriteHandlerContext;
+import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
+import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
+import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -122,5 +125,54 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
         return context.getFirstCellData() == null;
     }
 
+
+    /**
+     * 字体样式
+     *
+     * @param size   字体大小
+     * @param isBold 是否加粗
+     * @return
+     */
+    private Font getFont(Workbook workbook, short size, boolean isBold) {
+        Font font = workbook.createFont();
+        font.setFontName("宋体"); // 字体样式
+        font.setBold(isBold);    // 是否加粗
+        font.setColor(IndexedColors.RED.getIndex());
+        font.setFontHeightInPoints(size);   // 字体大小
+        return font;
+    }
+
+    /**
+     * 设置单元格为文本格式
+     */
+    public void afterCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
+        // 3.0 设置单元格为文本
+        Workbook workbook = writeSheetHolder.getSheet().getWorkbook();
+        System.out.println("列："+cell.getColumnIndex()+"的值是："+cell.getStringCellValue());
+        if (cell.getColumnIndex() == 4 && cell.getRowIndex() > 1) {
+            CellStyle css = workbook.createCellStyle();
+            //设置单元格为文本格式
+            DataFormat format = workbook.createDataFormat();
+            css.setDataFormat(format.getFormat("@"));
+            //设置字体大小和颜色
+            Font font = getFont(workbook,(short)16,true);
+            css.setFont(font);
+            Sheet sheet = writeSheetHolder.getSheet();
+            sheet.setDefaultColumnStyle(4, css);
+        }
+    }
+
+    //设置单元格为文本格式
+//    @Override
+//    public void afterCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
+//        if (cell.getColumnIndex() == 4) {
+//            //设置单元格格式为文本
+//            Workbook workbook = writeSheetHolder.getSheet().getWorkbook();
+//            CellStyle cellStyle = workbook.createCellStyle();
+//            DataFormat dataFormat = workbook.createDataFormat();
+//            cellStyle.setDataFormat(dataFormat.getFormat("@"));
+//            cell.setCellStyle(cellStyle);
+//        }
+//    }
 
 }
