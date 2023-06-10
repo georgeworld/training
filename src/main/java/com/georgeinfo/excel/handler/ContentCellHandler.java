@@ -15,6 +15,7 @@ import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddressList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -148,17 +149,37 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
     public void afterCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
         // 3.0 设置单元格为文本
         Workbook workbook = writeSheetHolder.getSheet().getWorkbook();
-        System.out.println("列："+cell.getColumnIndex()+"的值是："+cell.getStringCellValue());
+        System.out.println("列：" + cell.getColumnIndex() + "的值是：" + cell.getStringCellValue());
         if (cell.getColumnIndex() == 4 && cell.getRowIndex() > 1) {
             CellStyle css = workbook.createCellStyle();
             //设置单元格为文本格式
             DataFormat format = workbook.createDataFormat();
-            css.setDataFormat(format.getFormat("@"));
+            css.setDataFormat(format.getFormat("yyyy-mm-dd"));
             //设置字体大小和颜色
-            Font font = getFont(workbook,(short)16,true);
+            Font font = getFont(workbook, (short) 16, true);
             css.setFont(font);
             Sheet sheet = writeSheetHolder.getSheet();
             sheet.setDefaultColumnStyle(4, css);
+
+            //增加单元格校验器
+            DataValidationHelper helper = sheet.getDataValidationHelper();
+            // 创建数值约束
+            DataValidationConstraint integerConstraint = helper.createDateConstraint(
+                    DataValidationConstraint.OperatorType.BETWEEN, "Date(1990,1,1)", "Date(2999,12,31)", "yyyy-mm-dd");
+            // 创建验证
+            //设置下拉框得起始行，结束行，起始列，结束列
+            int firstRow = 2;
+            int lastRow = 0x10000;
+            int firstCol = 4;
+            int lastCol = 4;
+            CellRangeAddressList list = new CellRangeAddressList(firstRow, lastRow, firstCol, lastCol);
+            DataValidation validation = helper.createValidation(integerConstraint, list);
+            // 阻止输入非下拉选项的值
+            validation.setErrorStyle(DataValidation.ErrorStyle.STOP);
+            validation.setShowErrorBox(true);
+            validation.setSuppressDropDownArrow(true);
+            validation.createErrorBox("提示", "日期格式不正确");
+            sheet.addValidationData(validation);
         }
     }
 

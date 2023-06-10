@@ -1,6 +1,8 @@
-package db;
+package com.georgeinfo.db;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.georgeinfo.endetoolkit.EndeService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +42,16 @@ public class ConnectionManager {
         InputStream is = ConnectionManager.class.getResourceAsStream("/druid.properties");
         try {
             prop.load(is);
+            //解密密文数据库密码
+            String encPassword = prop.getProperty("password");
+            if (StringUtils.startsWith(encPassword, "ENC(") && StringUtils.endsWith(encPassword, ")")) {
+                encPassword = StringUtils.removeStart(encPassword, "ENC(");
+                encPassword = StringUtils.removeEnd(encPassword, ")");
+                String pwd = EndeService.decrypt(encPassword);
+                prop.setProperty("password", pwd);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("创建数据库连接时发生异常", e);
         }
         try {
             //返回的是DataSource
@@ -71,7 +81,7 @@ public class ConnectionManager {
             try {
                 conn.close();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                LOG.error("关闭数据库连接时出现异常", ex);
             }
         }
     }

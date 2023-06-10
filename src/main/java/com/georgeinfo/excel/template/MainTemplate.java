@@ -32,7 +32,8 @@ public class MainTemplate {
     private String area;
     @ColumnWidth(50)
     @ContentStyle(dataFormat = 49)
-    @ExcelProperty(value = {"date", "日期"}, index = 4)
+    @ExcelProperty(value = {"date", "日期"}, index = 4,converter = CustomStringStringConverter.class)
+//    @DateTimeFormat("yyyy-MM-dd")
     private String date;
 
     public MainTemplate() {
