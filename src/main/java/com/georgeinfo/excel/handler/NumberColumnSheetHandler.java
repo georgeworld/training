@@ -7,9 +7,15 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
 public class NumberColumnSheetHandler implements SheetWriteHandler {
+    /** 本sheet页填充的数据行数：不算表头行 */
+    private Integer totalRows;
+
+    public NumberColumnSheetHandler(Integer totalRows) {
+        this.totalRows = totalRows;
+    }
+
     @Override
     public void beforeSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
-
     }
 
     @Override
@@ -24,12 +30,12 @@ public class NumberColumnSheetHandler implements SheetWriteHandler {
         sheet.setDefaultColumnStyle(numberColumn, cs);
 
         DataValidationHelper helper = sheet.getDataValidationHelper();
-        // 创建数值约束
-        DataValidationConstraint integerConstraint = helper.createNumericConstraint(DataValidationConstraint.ValidationType.INTEGER,
+        //$$$ 创建数值约束
+        DataValidationConstraint integerConstraint = helper.createNumericConstraint(DataValidationConstraint.ValidationType.DECIMAL,
                 DataValidationConstraint.OperatorType.BETWEEN, "1.1", "3222900.1");
         // 创建验证
-        //设置下拉框得起始行，结束行，起始列，结束列
-        int firstRow = 2;
+        //设置下拉框得起始行，结束行，起始列，结束列，只校验新单元格，对于生成excel时已经填充了数据的单元格，不校验数值
+        int firstRow = totalRows + 2;
         int lastRow = 0x10000;
         int firstCol = numberColumn;
         int lastCol = numberColumn;

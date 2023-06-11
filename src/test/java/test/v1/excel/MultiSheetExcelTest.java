@@ -28,17 +28,20 @@ public class MultiSheetExcelTest {
         String filePath = System.getProperty("user.dir") + File.separator + "excel-template.xlsx";
 
         List<SheetInfo> sheetList = new ArrayList();
+        List sheetOneData = getFirstSheetData();
         sheetList.add(SheetInfoBuilder.setSheetName("第一个sheet")
                 .setTemplateClass(MainTemplate.class)
                 .setHandlerList(Arrays.asList(new HeadStyleHandler(),
                         new DropDownMenuHandler(getDropDownData()),
-                        new ContentCellHandler()))
-                .setData(getFirstSheetData())
+                        new ContentCellHandler(sheetOneData.size())))
+                .setData(sheetOneData)
                 .build());
+
+        List sheetTwoData = getSencondSheetData();
         sheetList.add(SheetInfoBuilder.setSheetName("第二个sheet")
                 .setTemplateClass(DemoTemplate.class)
-                .setHandlerList(Arrays.asList(new NumberColumnSheetHandler()))
-                .setData(getSencondSheetData())
+                .setHandlerList(Arrays.asList(new NumberColumnSheetHandler(sheetTwoData.size())))
+                .setData(sheetTwoData)
                 .build());
 
         boolean result = MultiSheetExcelBuilder
@@ -56,10 +59,10 @@ public class MultiSheetExcelTest {
 
     private List getFirstSheetData() {
         List list = new ArrayList();
-        list.add(new MainTemplate("刘", "德华", new BigDecimal("2099899.89"), "香港","2023-06-02 23:48:01"));
-        list.add(new MainTemplate("张", "学友", new BigDecimal("998.1"), "香港","2023-06-02 23:50:02"));
-        list.add(new MainTemplate("黎", "明", new BigDecimal("19886.9"), "香港","2023-06-02 23:50:03"));
-        list.add(new MainTemplate("郭", "富城", new BigDecimal("3222900"), "香港","2023-06-02 23:50:04"));
+        list.add(new MainTemplate("刘", "德华", "2099899.89", "香港","2023-06-02 23:48:01"));
+        list.add(new MainTemplate("张", "学友", "998.1", "香港","2023-06-02 23:50:02"));
+        list.add(new MainTemplate("黎", "明", "19886.9", "香港","2023-06-02 23:50:03"));
+        list.add(new MainTemplate("郭", "富城", "3222900", "香港","2023-06-02 23:50:04"));
         return list;
     }
 

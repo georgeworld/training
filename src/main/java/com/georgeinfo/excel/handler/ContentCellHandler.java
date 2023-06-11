@@ -28,10 +28,15 @@ import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
 public class ContentCellHandler extends AbstractCellStyleStrategy {
     private static Logger logger = LoggerFactory.getLogger(ContentCellHandler.class);
+    /**
+     * 本sheet页填充的数据行数：不算表头行
+     */
+    private Integer totalRows;
     private WriteCellStyle headWriteCellStyle;
     private List<WriteCellStyle> contentWriteCellStyleList;
 
-    public ContentCellHandler() {
+    public ContentCellHandler(Integer totalRows) {
+        this.totalRows = totalRows;
     }
 
     public ContentCellHandler(WriteCellStyle headWriteCellStyle, List<WriteCellStyle> contentWriteCellStyleList) {
@@ -115,9 +120,10 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
 ////            CellStyle cs = cell.getCellStyle();
 ////            cs.setDataFormat(format);
 ////            cell.setCellStyle(cs);
-//            DataFormatData formatData = new DataFormatData();
-//            formatData.setFormat("0.00");
-//            writeCellStyle.setDataFormatData(formatData);
+            //$$$ 强制设置单元格保留一位小数
+            DataFormatData formatData = new DataFormatData();
+            formatData.setFormat("0.0");
+            writeCellStyle.setDataFormatData(formatData);
 
         }
     }
@@ -195,5 +201,54 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
 //            cell.setCellStyle(cellStyle);
 //        }
 //    }
+
+    public void afterCellDispose(CellWriteHandlerContext context) {
+        if (context.getHead() != null) {
+            if (context.getHead()) {
+                this.setHeadCellStyle(context);
+            } else {
+                this.setContentCellStyle(context);
+
+                List<WriteCellData<?>> cellDataList = context.getCellDataList();
+
+                //设置单元格默认格式为本文格式
+                Workbook workbook = context.getWriteWorkbookHolder().getWorkbook();
+                if (context.getColumnIndex() == 0 ||
+                        context.getColumnIndex() == 1) {
+                    DataFormat dataFormat = workbook.createDataFormat();
+                    for (WriteCellData<?> writeCellData : cellDataList) {
+                        WriteCellStyle writeCellStyle = writeCellData.getOrCreateStyle();
+                        DataFormatData dataFormatData = new DataFormatData();
+                        dataFormatData.setIndex(dataFormat.getFormat("@"));
+                        writeCellStyle.setDataFormatData(dataFormatData);
+                    }
+                }
+
+                //设置日期单元格格式
+                if (context.getColumnIndex() == 4 && context.getRowIndex() > 1) {
+                    DataFormat dataFormat = workbook.createDataFormat();
+                    for (WriteCellData<?> writeCellData : cellDataList) {
+                        WriteCellStyle writeCellStyle = writeCellData.getOrCreateStyle();
+                        DataFormatData dataFormatData = new DataFormatData();
+                        dataFormatData.setIndex(dataFormat.getFormat("yyyy-mm-dd"));
+                        writeCellStyle.setDataFormatData(dataFormatData);
+                    }
+                }
+
+                //为单元格增加公式
+                if (context.getColumnIndex() == 2) {
+                    //$$$ 设置单元格的公式
+                    Cell cell = context.getCell();
+                    String v = cell.getStringCellValue();
+                    Double dv = Double.parseDouble(v.trim());
+                    //向下取整
+//                    cell.setCellFormula("ROUNDDOWN(" + dv + ",1)");
+                    //四舍五入
+                    cell.setCellFormula("ROUND(" + dv + ",1)");
+                }
+                context.getWriteSheetHolder().getSheet().setForceFormulaRecalculation(true);
+            }
+        }
+    }
 
 }

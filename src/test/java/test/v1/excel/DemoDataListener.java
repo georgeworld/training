@@ -33,7 +33,7 @@ public class DemoDataListener implements ReadListener<MainTemplate> {
      */
     @Override
     public void invoke(MainTemplate data, AnalysisContext context) {
-        log.info("解析到一条数据:{}", JSON.toJSONString(data));
+        log.info("解析到一条原始数据:{}", JSON.toJSONString(data));
 //        cachedDataList.add(data);
     }
 
