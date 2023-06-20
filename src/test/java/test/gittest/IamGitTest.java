@@ -11,5 +11,6 @@ public class IamGitTest {
         System.out.println("我是来自分支test的提交2");
         System.out.println("我是来自分支test的提交3");
         System.out.println("我是来自分支test的提交4");
+        System.out.println("我是来自分支test的提交5");
     }
 }
