@@ -1,34 +1,21 @@
-package com.georgeinfo.excel.handler;
+package test.gittest;
 
-import com.alibaba.excel.constant.BuiltinFormats;
 import com.alibaba.excel.metadata.Head;
 import com.alibaba.excel.metadata.data.DataFormatData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.util.ListUtils;
-import com.alibaba.excel.util.NumberDataFormatterUtils;
 import com.alibaba.excel.write.handler.context.CellWriteHandlerContext;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
-import com.alibaba.excel.write.metadata.style.WriteFont;
-import com.alibaba.excel.write.property.ExcelWriteHeadProperty;
 import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
 public class ContentCellHandler extends AbstractCellStyleStrategy {
     private static Logger logger = LoggerFactory.getLogger(ContentCellHandler.class);
