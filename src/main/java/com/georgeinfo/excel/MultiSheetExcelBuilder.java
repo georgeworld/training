@@ -2,6 +2,7 @@ package com.georgeinfo.excel;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.handler.WriteHandler;
@@ -16,6 +17,7 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class MultiSheetExcelBuilder implements SheetWriteHandler {
@@ -101,6 +103,52 @@ public class MultiSheetExcelBuilder implements SheetWriteHandler {
             logger.error("生成excel时出现异常", ex);
         }
         return true;
+    }
+
+    /**
+     * EasyExcel支持动态列导出
+     *
+     * @param builder        指定输出方式和样式
+     * @param entityClass    实体的Class对象
+     * @param customizeHeads 自定义列头
+     * @param list           Excel行数据
+     */
+    public static void excelHelper(ExcelWriterSheetBuilder builder, Class entityClass, List<HeadVO> customizeHeads, List<Map<String, Object>> list) {
+        Field[] fields = entityClass.getDeclaredFields();
+        // 获取类的注解
+
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            boolean annotationPresent = field.isAnnotationPresent(ExcelProperty.class);
+            if (annotationPresent) {
+                ExcelProperty excelProperty = field.getAnnotation(ExcelProperty.class);
+                List<String> head = Arrays.asList(excelProperty.value());
+                int index = excelProperty.index();
+                int order = excelProperty.order();
+                HeadVO headVO = new HeadVO();
+                headVO.setHeadTitle(head);
+                headVO.setIndex(index);
+                headVO.setOrder(order);
+                headVO.setKey(field.getName());
+                customizeHeads.add(headVO);
+            }
+        }
+        Collections.sort(customizeHeads);
+        List<List<String>> heads = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
+        for (int i = 0; i <= customizeHeads.size() - 1; i++) {
+            heads.add(customizeHeads.get(i).getHeadTitle());
+            keys.add(customizeHeads.get(i).getKey());
+        }
+        List<List<Object>> objs = new ArrayList<>();
+        list.stream().forEach(e -> {
+            List<Object> obj = new ArrayList<>();
+            for (int i = 0; i < keys.size(); i++) {
+                obj.add(e.get(keys.get(i)));
+            }
+            objs.add(obj);
+        });
+        builder.head(heads).doWrite(objs);
     }
 }
 

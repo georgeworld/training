@@ -11,6 +11,7 @@ import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
+import com.alibaba.excel.write.property.ExcelWriteHeadProperty;
 import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +22,11 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
@@ -51,6 +55,25 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
         }
 
     }
+
+    @Override
+    public void beforeCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Row row, Head head, Integer columnIndex, Integer relativeRowIndex, Boolean isHead) {
+        if (head != null) {
+            //重新设置表头信息
+//            List<String> headNameList = head.getHeadNameList();
+//            if (CollectionUtils.isNotEmpty(headNameList)) {
+//                for (String headName: headNameList) {
+//                    if(headName.equals("工资")){
+//                        head.setColumnIndex(0);
+//                    }
+//                    if(headName.equals("姓")){
+//                        head.setColumnIndex(2);
+//                    }
+//                }
+//            }
+        }
+    }
+
 
     protected void setHeadCellStyle(Cell cell, Head head, Integer relativeRowIndex) {
         logger.info("触发自定义表头样式设置方法");
@@ -236,15 +259,19 @@ public class ContentCellHandler extends AbstractCellStyleStrategy {
                 }
 
                 //为单元格增加公式
-                if (context.getColumnIndex() == 2) {
-                    //$$$ 设置单元格的公式
-                    Cell cell = context.getCell();
-                    String v = cell.getStringCellValue();
-                    Double dv = Double.parseDouble(v.trim());
-                    //向下取整
+                try {
+                    if (context.getColumnIndex() == 2) {
+                        //$$$ 设置单元格的公式
+                        Cell cell = context.getCell();
+                        String v = cell.getStringCellValue();
+                        Double dv = Double.parseDouble(v.trim());
+                        //向下取整
 //                    cell.setCellFormula("ROUNDDOWN(" + dv + ",1)");
-                    //四舍五入
-                    cell.setCellFormula("ROUND(" + dv + ",1)");
+                        //四舍五入
+                        cell.setCellFormula("ROUND(" + dv + ",1)");
+                    }
+                }catch (Exception ex){
+                    logger.error("设置单元格公式时出现异常",ex);
                 }
                 context.getWriteSheetHolder().getSheet().setForceFormulaRecalculation(true);
             }
